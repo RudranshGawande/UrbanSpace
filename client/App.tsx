@@ -24,59 +24,59 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/transport" element={<Transport />} />
-            <Route 
-              path="/waste" 
+            <Route
+              path="/waste"
               element={
-                <PlaceholderPage 
-                  title="Waste Collection" 
+                <PlaceholderPage
+                  title="Waste Collection"
                   description="Get personalized waste pickup schedules and reminders for your area."
                 />
-              } 
+              }
             />
-            <Route 
-              path="/report" 
+            <Route
+              path="/report"
               element={
-                <PlaceholderPage 
-                  title="Report Infrastructure Issues" 
+                <PlaceholderPage
+                  title="Report Infrastructure Issues"
                   description="Report problems with roads, lighting, or other city infrastructure with photos and location data."
                 />
-              } 
+              }
             />
-            <Route 
-              path="/lost-found" 
+            <Route
+              path="/lost-found"
               element={
-                <PlaceholderPage 
-                  title="Lost & Found Portal" 
+                <PlaceholderPage
+                  title="Lost & Found Portal"
                   description="Community-powered platform to help find lost items and reunite them with their owners."
                 />
-              } 
+              }
             />
-            <Route 
-              path="/events" 
+            <Route
+              path="/events"
               element={
-                <PlaceholderPage 
-                  title="Local Events Calendar" 
+                <PlaceholderPage
+                  title="Local Events Calendar"
                   description="Discover community events, festivals, and activities happening in your neighborhood."
                 />
-              } 
+              }
             />
-            <Route 
-              path="/emergency" 
+            <Route
+              path="/emergency"
               element={
-                <PlaceholderPage 
-                  title="Emergency Services" 
+                <PlaceholderPage
+                  title="Emergency Services"
                   description="Quick access to emergency contacts, SOS features, and safety resources."
                 />
-              } 
+              }
             />
-            <Route 
-              path="/community" 
+            <Route
+              path="/community"
               element={
-                <PlaceholderPage 
-                  title="Community Chat" 
+                <PlaceholderPage
+                  title="Community Chat"
                   description="Connect with your neighbors, share information, and stay updated on local news."
                 />
-              } 
+              }
             />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
