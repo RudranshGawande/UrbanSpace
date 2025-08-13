@@ -47,6 +47,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        'city-blue': {
+          50: 'hsl(220, 91%, 95%)',
+          100: 'hsl(220, 91%, 90%)',
+          500: 'hsl(220, 91%, 54%)',
+          600: 'hsl(220, 91%, 45%)',
+          700: 'hsl(220, 91%, 35%)',
+        },
+        'city-green': {
+          50: 'hsl(174, 100%, 95%)',
+          100: 'hsl(174, 100%, 85%)',
+          500: 'hsl(174, 100%, 29%)',
+          600: 'hsl(174, 100%, 25%)',
+          700: 'hsl(174, 100%, 20%)',
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
