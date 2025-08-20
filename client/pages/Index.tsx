@@ -178,18 +178,11 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 pb-20 lg:pb-0 relative overflow-hidden">
-      {/* Enhanced Multi-layer Background Grid */}
-      <div className="absolute inset-0">
-        {/* Primary Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(56,189,248,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(56,189,248,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
-        {/* Secondary Micro Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(147,51,234,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.02)_1px,transparent_1px)] bg-[size:10px_10px] opacity-50" />
-        {/* Scanning Lines */}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(56,189,248,0.1)_50%,transparent_100%)] bg-[size:200px_100%] animate-pulse" />
-      </div>
-
+      {/* Animated Background Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(56,189,248,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(56,189,248,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+      
       {/* Dynamic Mouse Glow */}
-      <div
+      <div 
         className="fixed pointer-events-none z-0 w-96 h-96 rounded-full opacity-20 blur-3xl transition-all duration-300"
         style={{
           background: 'radial-gradient(circle, rgba(56,189,248,0.4), rgba(147,51,234,0.2), transparent)',
@@ -198,136 +191,71 @@ export default function Index() {
         }}
       />
 
-      {/* Enhanced Floating Particles */}
+      {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full opacity-60"
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60 animate-pulse"
             style={{
-              width: Math.random() > 0.7 ? '2px' : '1px',
-              height: Math.random() > 0.7 ? '2px' : '1px',
-              backgroundColor: ['#38bdf8', '#a855f7', '#ec4899'][Math.floor(Math.random() * 3)],
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `pulse ${3 + Math.random() * 2}s infinite ${Math.random() * 3}s`,
-              boxShadow: Math.random() > 0.8 ? '0 0 10px currentColor' : 'none'
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${3 + Math.random() * 2}s`
             }}
           />
         ))}
-      </div>
-
-      {/* Holographic Scan Lines */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent top-1/4 animate-pulse" />
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-purple-400/20 to-transparent top-2/3 animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
       {/* Hero Section */}
       <div className="relative z-10">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20">
           <div className="text-center">
-            {/* Holographic Logo */}
+            {/* Futuristic Logo */}
             <div className="flex justify-center mb-8">
               <div className="relative group">
-                {/* Multiple glow layers for holographic effect */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-3xl blur-lg opacity-50 group-hover:opacity-80 transition duration-1000 animate-pulse"></div>
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-3xl blur-md opacity-70 group-hover:opacity-100 transition duration-1000 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                <div className="relative w-24 h-24 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-3xl flex items-center justify-center shadow-2xl border border-cyan-400/30">
-                  <MapPin className="w-12 h-12 text-white filter drop-shadow-lg" />
-                  {/* Holographic shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-cyan-400/20 to-transparent rounded-3xl"></div>
-                  <div className="absolute inset-0 bg-gradient-to-tl from-purple-400/20 via-transparent to-pink-400/20 rounded-3xl"></div>
-                  {/* Scanning line */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 group-hover:animate-ping"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-3xl blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                <div className="relative w-24 h-24 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-3xl flex items-center justify-center shadow-2xl">
+                  <MapPin className="w-12 h-12 text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-3xl"></div>
                 </div>
               </div>
             </div>
 
-            {/* Holographic Title */}
-            <h1 className="text-5xl md:text-8xl font-bold mb-6 relative select-none">
-              <span className="bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent filter drop-shadow-sm">
+            {/* Enhanced Title */}
+            <h1 className="text-5xl md:text-8xl font-bold mb-6 relative">
+              <span className="bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent">
                 Welcome to
               </span>
               <br />
-              <div className="relative inline-block">
-                {/* Main text */}
-                <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse font-black tracking-wider">
-                  CityScape
-                </span>
-                {/* Glitch effect layers */}
-                <span className="absolute inset-0 bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent opacity-20 transform translate-x-0.5 translate-y-0.5 font-black tracking-wider">
-                  CityScape
-                </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 bg-clip-text text-transparent opacity-10 transform -translate-x-0.5 -translate-y-0.5 font-black tracking-wider">
-                  CityScape
-                </span>
-                {/* Holographic scan line */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 bg-clip-text text-transparent font-black tracking-wider animate-pulse">
-                  CityScape
-                </div>
-              </div>
-              {/* Enhanced floating elements */}
+              <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
+                CityScape
+              </span>
               <div className="absolute top-0 right-0 transform translate-x-4 -translate-y-4">
                 <Sparkles className="w-8 h-8 text-cyan-400 animate-spin" />
               </div>
-              <div className="absolute bottom-0 left-0 transform -translate-x-4 translate-y-4">
-                <div className="w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
-              </div>
-              <div className="absolute top-1/2 right-1/4 transform translate-x-8">
-                <div className="w-1 h-1 bg-pink-400 rounded-full animate-pulse"></div>
-              </div>
             </h1>
 
-            <div className="relative mb-4 max-w-4xl mx-auto">
-              {/* Terminal-style container */}
-              <div className="bg-slate-950/50 border border-cyan-400/30 rounded-lg p-6 backdrop-blur-sm shadow-2xl">
-                <div className="flex items-center mb-3">
-                  <div className="flex space-x-2">
-                    <div className="w-3 h-3 bg-red-400 rounded-full opacity-60"></div>
-                    <div className="w-3 h-3 bg-yellow-400 rounded-full opacity-60"></div>
-                    <div className="w-3 h-3 bg-green-400 rounded-full opacity-60"></div>
-                  </div>
-                  <div className="ml-4 text-xs text-slate-500 font-mono">$ system_status --platform</div>
-                </div>
-                <p className="text-xl md:text-2xl text-slate-300 font-mono leading-relaxed">
-                  <span className="text-green-400">&gt;</span> Next-generation urban intelligence platform powered by{" "}
-                  <span className="text-cyan-400 font-semibold bg-cyan-400/10 px-2 py-1 rounded border border-cyan-400/20">AI</span>,{" "}
-                  <span className="text-purple-400 font-semibold bg-purple-400/10 px-2 py-1 rounded border border-purple-400/20">IoT</span>, and{" "}
-                  <span className="text-pink-400 font-semibold bg-pink-400/10 px-2 py-1 rounded border border-pink-400/20">Quantum</span> technologies
-                  <span className="animate-pulse text-cyan-400 ml-1">_</span>
-                </p>
-              </div>
-            </div>
+            <p className="text-xl md:text-2xl text-slate-300 mb-4 max-w-4xl mx-auto">
+              Next-generation urban intelligence platform powered by{" "}
+              <span className="text-cyan-400 font-semibold">AI</span>,{" "}
+              <span className="text-purple-400 font-semibold">IoT</span>, and{" "}
+              <span className="text-pink-400 font-semibold">Quantum</span> technologies
+            </p>
 
-            {/* Advanced Status Array */}
-            <div className="mb-12">
-              <div className="bg-slate-950/40 border border-slate-700/50 rounded-xl p-4 backdrop-blur-sm max-w-4xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                  <div className="flex items-center justify-center space-x-3 p-3 bg-green-400/5 border border-green-400/20 rounded-lg">
-                    <div className="relative">
-                      <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                      <div className="absolute inset-0 w-3 h-3 bg-green-400 rounded-full animate-ping opacity-30"></div>
-                    </div>
-                    <span className="text-slate-300 font-mono">NEURAL_NET: </span>
-                    <span className="text-green-400 font-bold">ONLINE</span>
-                  </div>
-                  <div className="flex items-center justify-center space-x-3 p-3 bg-blue-400/5 border border-blue-400/20 rounded-lg">
-                    <Globe className="w-4 h-4 text-blue-400 animate-pulse" />
-                    <span className="text-slate-300 font-mono">TIME_SYNC: </span>
-                    <span className="text-blue-400 font-bold">{currentTime.toLocaleTimeString()}</span>
-                  </div>
-                  <div className="flex items-center justify-center space-x-3 p-3 bg-purple-400/5 border border-purple-400/20 rounded-lg">
-                    <Shield className="w-4 h-4 text-purple-400 animate-pulse" />
-                    <span className="text-slate-300 font-mono">Q_ENCRYPT: </span>
-                    <span className="text-purple-400 font-bold">SECURED</span>
-                  </div>
-                </div>
-                {/* Data stream visualization */}
-                <div className="mt-4 h-1 bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-full animate-pulse" style={{ width: '73%' }}></div>
-                </div>
-                <div className="text-center mt-2 text-xs text-slate-500 font-mono">SYSTEM_PERFORMANCE: 73.4% | UPTIME: 99.7%</div>
+            {/* Real-time Status */}
+            <div className="flex items-center justify-center space-x-4 mb-12 text-sm text-slate-400">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span>Neural Network Online</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Globe className="w-4 h-4 text-blue-400" />
+                <span>{currentTime.toLocaleTimeString()}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Shield className="w-4 h-4 text-purple-400" />
+                <span>Quantum Secured</span>
               </div>
             </div>
 
