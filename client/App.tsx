@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "@/components/Layout";
 import Index from "./pages/Index";
 import Transport from "./pages/Transport";
+import Waste from "./pages/Waste";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -24,15 +25,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/transport" element={<Transport />} />
-            <Route
-              path="/waste"
-              element={
-                <PlaceholderPage
-                  title="Waste Collection"
-                  description="Get personalized waste pickup schedules and reminders for your area."
-                />
-              }
-            />
+            <Route path="/waste" element={<Waste />} />
             <Route
               path="/report"
               element={
