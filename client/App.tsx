@@ -28,15 +28,7 @@ const App = () => (
             <Route path="/transport" element={<Transport />} />
             <Route path="/waste" element={<Waste />} />
             <Route path="/report" element={<Report />} />
-            <Route
-              path="/lost-found"
-              element={
-                <PlaceholderPage
-                  title="Lost & Found Portal"
-                  description="Community-powered platform to help find lost items and reunite them with their owners."
-                />
-              }
-            />
+            <Route path="/lost-found" element={<LostFound />} />
             <Route
               path="/events"
               element={
