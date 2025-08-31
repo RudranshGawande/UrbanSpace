@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Phone, MapPin, LocateFixed, MessageSquare, Plus, Trash2, ShieldAlert, Send, Settings, Ambulance, Hospital, PoliceCar, FileText } from "lucide-react";
+import { Phone, MapPin, LocateFixed, MessageSquare, Plus, Trash2, ShieldAlert, Send, Settings, Ambulance, Hospital, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Coords { lat: number; lng: number }
@@ -135,7 +135,7 @@ export default function Emergency() {
   const quickServices = [
     { label: "Ambulance", icon: Ambulance, query: "ambulance" },
     { label: "Hospital", icon: Hospital, query: "hospital" },
-    { label: "Police", icon: PoliceCar, query: "police" },
+    { label: "Police", icon: ShieldAlert, query: "police" },
   ];
 
   return (
