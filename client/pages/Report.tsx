@@ -12,8 +12,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -126,7 +139,9 @@ export default function Report() {
   const [locating, setLocating] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [statusFilter, setStatusFilter] = useState<ReportStatus | "all">("all");
-  const [categoryFilter, setCategoryFilter] = useState<ReportCategory | "all">("all");
+  const [categoryFilter, setCategoryFilter] = useState<ReportCategory | "all">(
+    "all",
+  );
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -143,9 +158,10 @@ export default function Report() {
   });
 
   const filteredReports = useMemo(() => {
-    return reports.filter((r) =>
-      (statusFilter === "all" || r.status === statusFilter) &&
-      (categoryFilter === "all" || r.category === categoryFilter)
+    return reports.filter(
+      (r) =>
+        (statusFilter === "all" || r.status === statusFilter) &&
+        (categoryFilter === "all" || r.category === categoryFilter),
     );
   }, [reports, statusFilter, categoryFilter]);
 
@@ -155,17 +171,27 @@ export default function Report() {
 
   const onSubmit = (values: FormValues) => {
     if (!values.title || values.title.trim().length < 5) {
-      toast({ title: "Title too short", description: "Please provide a descriptive title (min 5 characters)." });
+      toast({
+        title: "Title too short",
+        description: "Please provide a descriptive title (min 5 characters).",
+      });
       return;
     }
     if (!values.description || values.description.trim().length < 15) {
-      toast({ title: "Description too short", description: "Please describe the issue with at least 15 characters." });
+      toast({
+        title: "Description too short",
+        description: "Please describe the issue with at least 15 characters.",
+      });
       return;
     }
     if (values.allowContact) {
-      const hasEmailOrPhone = Boolean(values.email?.trim()) || Boolean(values.phone?.trim());
+      const hasEmailOrPhone =
+        Boolean(values.email?.trim()) || Boolean(values.phone?.trim());
       if (!hasEmailOrPhone) {
-        toast({ title: "Contact required", description: "Provide an email or phone if you allow contact." });
+        toast({
+          title: "Contact required",
+          description: "Provide an email or phone if you allow contact.",
+        });
         return;
       }
     }
@@ -203,7 +229,10 @@ export default function Report() {
     });
     setImages([]);
 
-    toast({ title: "Report submitted", description: "Thank you for helping improve city infrastructure." });
+    toast({
+      title: "Report submitted",
+      description: "Thank you for helping improve city infrastructure.",
+    });
   };
 
   const handleFiles = async (fileList: FileList | null) => {
@@ -216,19 +245,25 @@ export default function Report() {
           reader.onload = () => resolve(String(reader.result));
           reader.onerror = () => reject(reader.error);
           reader.readAsDataURL(file);
-        })
+        }),
     );
     try {
       const results = await Promise.all(readers);
       setImages((prev) => [...prev, ...results].slice(0, 5));
     } catch {
-      toast({ title: "Image upload failed", description: "Unable to read one or more images." });
+      toast({
+        title: "Image upload failed",
+        description: "Unable to read one or more images.",
+      });
     }
   };
 
   const useMyLocation = () => {
     if (!navigator.geolocation) {
-      toast({ title: "Geolocation not available", description: "Your browser does not support location access." });
+      toast({
+        title: "Geolocation not available",
+        description: "Your browser does not support location access.",
+      });
       return;
     }
     setLocating(true);
@@ -236,13 +271,19 @@ export default function Report() {
       (pos) => {
         setCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
         setLocating(false);
-        toast({ title: "Location captured", description: "Coordinates added to the report." });
+        toast({
+          title: "Location captured",
+          description: "Coordinates added to the report.",
+        });
       },
       () => {
         setLocating(false);
-        toast({ title: "Location denied", description: "Allow location permission or enter an address." });
+        toast({
+          title: "Location denied",
+          description: "Allow location permission or enter an address.",
+        });
       },
-      { enableHighAccuracy: true, timeout: 10000 }
+      { enableHighAccuracy: true, timeout: 10000 },
     );
   };
 
@@ -263,7 +304,8 @@ export default function Report() {
               <AlertTriangle className="w-7 h-7 text-orange-500" /> Report Issue
             </h1>
             <p className="text-muted-foreground">
-              Submit infrastructure problems with photos and location. We'll keep you updated.
+              Submit infrastructure problems with photos and location. We'll
+              keep you updated.
             </p>
           </div>
         </div>
@@ -272,11 +314,16 @@ export default function Report() {
           <Card className="lg:col-span-2">
             <CardHeader>
               <CardTitle>New Report</CardTitle>
-              <CardDescription>Provide details to help the city resolve the issue quickly.</CardDescription>
+              <CardDescription>
+                Provide details to help the city resolve the issue quickly.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-6"
+                >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
@@ -285,9 +332,14 @@ export default function Report() {
                         <FormItem>
                           <FormLabel>Title</FormLabel>
                           <FormControl>
-                            <Input placeholder="e.g. Large pothole near City Hall" {...field} />
+                            <Input
+                              placeholder="e.g. Large pothole near City Hall"
+                              {...field}
+                            />
                           </FormControl>
-                          <FormDescription>Make it concise and descriptive.</FormDescription>
+                          <FormDescription>
+                            Make it concise and descriptive.
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -299,7 +351,10 @@ export default function Report() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Category</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select a category" />
@@ -326,7 +381,11 @@ export default function Report() {
                       <FormItem>
                         <FormLabel>Description</FormLabel>
                         <FormControl>
-                          <Textarea rows={5} placeholder="Describe the issue, severity, and exact spot." {...field} />
+                          <Textarea
+                            rows={5}
+                            placeholder="Describe the issue, severity, and exact spot."
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -341,7 +400,10 @@ export default function Report() {
                         <FormItem>
                           <FormLabel>Address or Landmark</FormLabel>
                           <FormControl>
-                            <Input placeholder="e.g. 123 Main St, near fountain" {...field} />
+                            <Input
+                              placeholder="e.g. 123 Main St, near fountain"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -352,21 +414,40 @@ export default function Report() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <MapPin className="w-4 h-4 text-muted-foreground" />
-                          <span className="text-sm text-muted-foreground">Coordinates</span>
+                          <span className="text-sm text-muted-foreground">
+                            Coordinates
+                          </span>
                         </div>
-                        <Button type="button" size="sm" variant="secondary" onClick={useMyLocation} disabled={locating}>
-                          <LocateFixed className={cn("w-4 h-4 mr-2", locating && "animate-pulse")} />
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="secondary"
+                          onClick={useMyLocation}
+                          disabled={locating}
+                        >
+                          <LocateFixed
+                            className={cn(
+                              "w-4 h-4 mr-2",
+                              locating && "animate-pulse",
+                            )}
+                          />
                           {locating ? "Locating..." : "Use my location"}
                         </Button>
                       </div>
                       <div className="text-sm">
                         {coords ? (
                           <div className="flex items-center gap-2">
-                            <Badge variant="secondary">lat {coords.lat.toFixed(6)}</Badge>
-                            <Badge variant="secondary">lng {coords.lng.toFixed(6)}</Badge>
+                            <Badge variant="secondary">
+                              lat {coords.lat.toFixed(6)}
+                            </Badge>
+                            <Badge variant="secondary">
+                              lng {coords.lng.toFixed(6)}
+                            </Badge>
                           </div>
                         ) : (
-                          <span className="text-muted-foreground">No coordinates captured</span>
+                          <span className="text-muted-foreground">
+                            No coordinates captured
+                          </span>
                         )}
                       </div>
                     </div>
@@ -375,12 +456,16 @@ export default function Report() {
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <FormLabel>Photos</FormLabel>
-                      <div className="text-xs text-muted-foreground">Up to 5 images</div>
+                      <div className="text-xs text-muted-foreground">
+                        Up to 5 images
+                      </div>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                       <label className="aspect-square border border-dashed border-border rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-muted/50 transition-colors">
                         <Upload className="w-5 h-5 text-muted-foreground mb-1" />
-                        <span className="text-xs text-muted-foreground">Upload</span>
+                        <span className="text-xs text-muted-foreground">
+                          Upload
+                        </span>
                         <input
                           type="file"
                           accept="image/*"
@@ -390,11 +475,22 @@ export default function Report() {
                         />
                       </label>
                       {images.map((src, idx) => (
-                        <div key={idx} className="relative aspect-square rounded-lg overflow-hidden border border-border">
-                          <img src={src} alt={`uploaded-${idx}`} className="w-full h-full object-cover" />
+                        <div
+                          key={idx}
+                          className="relative aspect-square rounded-lg overflow-hidden border border-border"
+                        >
+                          <img
+                            src={src}
+                            alt={`uploaded-${idx}`}
+                            className="w-full h-full object-cover"
+                          />
                           <button
                             type="button"
-                            onClick={() => setImages((prev) => prev.filter((_, i) => i !== idx))}
+                            onClick={() =>
+                              setImages((prev) =>
+                                prev.filter((_, i) => i !== idx),
+                              )
+                            }
                             className="absolute top-1 right-1 bg-white/90 rounded-full p-1 shadow"
                             aria-label="Remove image"
                           >
@@ -413,10 +509,15 @@ export default function Report() {
                         <FormItem className="flex items-center justify-between rounded-lg border p-3">
                           <div className="space-y-0.5">
                             <FormLabel>Allow city to contact you</FormLabel>
-                            <FormDescription>Share your info for follow-ups and status updates.</FormDescription>
+                            <FormDescription>
+                              Share your info for follow-ups and status updates.
+                            </FormDescription>
                           </div>
                           <FormControl>
-                            <Switch checked={field.value} onCheckedChange={field.onChange} />
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
                           </FormControl>
                         </FormItem>
                       )}
@@ -443,7 +544,11 @@ export default function Report() {
                             <FormItem>
                               <FormLabel>Email</FormLabel>
                               <FormControl>
-                                <Input type="email" placeholder="you@example.com" {...field} />
+                                <Input
+                                  type="email"
+                                  placeholder="you@example.com"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -456,7 +561,11 @@ export default function Report() {
                             <FormItem>
                               <FormLabel>Phone</FormLabel>
                               <FormControl>
-                                <Input type="tel" placeholder="1234567890" {...field} />
+                                <Input
+                                  type="tel"
+                                  placeholder="1234567890"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -467,7 +576,15 @@ export default function Report() {
                   </div>
 
                   <div className="flex items-center justify-end gap-2">
-                    <Button type="button" variant="secondary" onClick={() => { form.reset(); setImages([]); setCoords(undefined); }}>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => {
+                        form.reset();
+                        setImages([]);
+                        setCoords(undefined);
+                      }}
+                    >
                       Reset
                     </Button>
                     <Button type="submit">
@@ -483,11 +600,16 @@ export default function Report() {
             <Card>
               <CardHeader>
                 <CardTitle>Reports</CardTitle>
-                <CardDescription>View and manage your submitted reports.</CardDescription>
+                <CardDescription>
+                  View and manage your submitted reports.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-2">
-                  <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as any)}>
+                  <Select
+                    value={statusFilter}
+                    onValueChange={(v) => setStatusFilter(v as any)}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Status" />
                     </SelectTrigger>
@@ -498,7 +620,10 @@ export default function Report() {
                       <SelectItem value="resolved">Resolved</SelectItem>
                     </SelectContent>
                   </Select>
-                  <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(v as any)}>
+                  <Select
+                    value={categoryFilter}
+                    onValueChange={(v) => setCategoryFilter(v as any)}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Category" />
                     </SelectTrigger>
@@ -515,54 +640,89 @@ export default function Report() {
                 <Separator />
                 <div className="space-y-3 max-h-[520px] overflow-auto pr-1">
                   {filteredReports.length === 0 && (
-                    <div className="text-sm text-muted-foreground">No reports match the selected filters.</div>
+                    <div className="text-sm text-muted-foreground">
+                      No reports match the selected filters.
+                    </div>
                   )}
                   {filteredReports.map((r) => (
-                    <div key={r.id} className="border border-border rounded-lg p-3 bg-card/60">
+                    <div
+                      key={r.id}
+                      className="border border-border rounded-lg p-3 bg-card/60"
+                    >
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-medium text-foreground">{r.title}</span>
+                            <span className="font-medium text-foreground">
+                              {r.title}
+                            </span>
                             <Badge variant="secondary">{r.category}</Badge>
                           </div>
-                          <div className="text-xs text-muted-foreground">{formatDateTime(r.createdAt)}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {formatDateTime(r.createdAt)}
+                          </div>
                         </div>
-                        <Badge className={statusBadgeClass(r.status)}>{r.status}</Badge>
+                        <Badge className={statusBadgeClass(r.status)}>
+                          {r.status}
+                        </Badge>
                       </div>
 
                       {r.address && (
                         <div className="text-sm mt-2">
-                          <span className="text-muted-foreground">Address:</span> {r.address}
+                          <span className="text-muted-foreground">
+                            Address:
+                          </span>{" "}
+                          {r.address}
                         </div>
                       )}
                       {r.coords && (
                         <div className="text-sm">
-                          <span className="text-muted-foreground">Coords:</span> {r.coords.lat.toFixed(5)}, {r.coords.lng.toFixed(5)}
+                          <span className="text-muted-foreground">Coords:</span>{" "}
+                          {r.coords.lat.toFixed(5)}, {r.coords.lng.toFixed(5)}
                         </div>
                       )}
 
                       {r.photos.length > 0 && (
                         <div className="grid grid-cols-4 gap-2 mt-2">
                           {r.photos.slice(0, 4).map((src, i) => (
-                            <img key={i} src={src} alt={`report-${i}`} className="w-full aspect-square object-cover rounded" />
+                            <img
+                              key={i}
+                              src={src}
+                              alt={`report-${i}`}
+                              className="w-full aspect-square object-cover rounded"
+                            />
                           ))}
                         </div>
                       )}
 
                       <div className="flex items-center justify-between mt-3">
-                        <div className="text-sm line-clamp-2 text-muted-foreground pr-4">{r.description}</div>
+                        <div className="text-sm line-clamp-2 text-muted-foreground pr-4">
+                          {r.description}
+                        </div>
                         <div className="flex items-center gap-2">
-                          <Select onValueChange={(v) => updateStatus(r.id, v as ReportStatus)}>
+                          <Select
+                            onValueChange={(v) =>
+                              updateStatus(r.id, v as ReportStatus)
+                            }
+                          >
                             <SelectTrigger className="w-[140px]">
                               <SelectValue placeholder="Change status" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="submitted">Submitted</SelectItem>
-                              <SelectItem value="in-progress">In Progress</SelectItem>
+                              <SelectItem value="submitted">
+                                Submitted
+                              </SelectItem>
+                              <SelectItem value="in-progress">
+                                In Progress
+                              </SelectItem>
                               <SelectItem value="resolved">Resolved</SelectItem>
                             </SelectContent>
                           </Select>
-                          <Button variant="ghost" size="icon" onClick={() => removeReport(r.id)} aria-label="Delete report">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeReport(r.id)}
+                            aria-label="Delete report"
+                          >
                             <Trash2 className="w-4 h-4 text-red-600" />
                           </Button>
                         </div>
@@ -576,12 +736,15 @@ export default function Report() {
             <Card>
               <CardHeader>
                 <CardTitle>Tips for Accurate Reports</CardTitle>
-                <CardDescription>Improve response time with clear details.</CardDescription>
+                <CardDescription>
+                  Improve response time with clear details.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2 text-sm text-muted-foreground">
                 <div className="flex items-start gap-2">
                   <ImageIcon className="w-4 h-4 mt-0.5" />
-                  Upload clear, close-up photos. Include a wide shot for context.
+                  Upload clear, close-up photos. Include a wide shot for
+                  context.
                 </div>
                 <div className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-0.5" />
@@ -593,7 +756,9 @@ export default function Report() {
                 </div>
               </CardContent>
               <CardFooter>
-                <div className="text-xs text-muted-foreground">Personal data is stored locally in your browser.</div>
+                <div className="text-xs text-muted-foreground">
+                  Personal data is stored locally in your browser.
+                </div>
               </CardFooter>
             </Card>
           </div>
