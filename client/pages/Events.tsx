@@ -116,6 +116,9 @@ import { cn } from "@/lib/utils";
   if (isPast(e.dateISO)) return "completed";
   return "upcoming";
  }
+ function startOfDay(d: Date) {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+ }
 
  export default function Events() {
   const { toast } = useToast();
@@ -169,6 +172,16 @@ import { cn } from "@/lib/utils";
       .sort((a, b) => new Date(a.dateISO).getTime() - new Date(b.dateISO).getTime());
     return tab === "past" ? list.reverse() : list;
   }, [events, categoryFilter, selectedDate, tab, query]);
+
+  const eventDateSet = useMemo(() => {
+    const set = new Set<string>();
+    events.forEach((e) => {
+      const d = new Date(e.dateISO);
+      set.add(startOfDay(d).toDateString());
+    });
+    return set;
+  }, [events]);
+  const hasEventMatcher = (day: Date) => eventDateSet.has(startOfDay(day).toDateString());
 
   const onSubmit = (values: FormValues) => {
     if (!values.title || values.title.trim().length < 3) {
@@ -333,7 +346,14 @@ import { cn } from "@/lib/utils";
                         <FormField control={form.control} name="date" render={({ field }) => (
                           <FormItem>
                             <FormLabel>Date</FormLabel>
-                            <Calendar mode="single" selected={field.value} onSelect={field.onChange as any} className="rounded-md border" />
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange as any}
+                              className="rounded-md border"
+                              modifiers={{ hasEvent: hasEventMatcher }}
+                              modifiersClassNames={{ hasEvent: "ring-2 ring-primary/60 rounded-md" }}
+                            />
                             <FormDescription>Select the event date.</FormDescription>
                             <FormMessage />
                           </FormItem>
@@ -395,7 +415,18 @@ import { cn } from "@/lib/utils";
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div className="md:col-span-1">
-                      <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate as any} className="rounded-md border" />
+                      <Calendar
+                        mode="single"
+                        selected={selectedDate}
+                        onSelect={setSelectedDate as any}
+                        className="rounded-md border"
+                        modifiers={{ hasEvent: hasEventMatcher }}
+                        modifiersClassNames={{ hasEvent: "ring-2 ring-primary/60 rounded-md" }}
+                      />
+                      <div className="flex items-center gap-2 mt-2">
+                        <Button size="sm" variant="secondary" onClick={() => setSelectedDate(new Date())}>Today</Button>
+                        <Button size="sm" variant="ghost" onClick={() => setSelectedDate(undefined)}>Clear</Button>
+                      </div>
                     </div>
                     <div className="md:col-span-2 space-y-3">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
