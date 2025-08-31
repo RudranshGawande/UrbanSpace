@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 import Transport from "./pages/Transport";
 import Waste from "./pages/Waste";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import Report from "./pages/Report";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,15 +27,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/transport" element={<Transport />} />
             <Route path="/waste" element={<Waste />} />
-            <Route
-              path="/report"
-              element={
-                <PlaceholderPage
-                  title="Report Infrastructure Issues"
-                  description="Report problems with roads, lighting, or other city infrastructure with photos and location data."
-                />
-              }
-            />
+            <Route path="/report" element={<Report />} />
             <Route
               path="/lost-found"
               element={
