@@ -12,6 +12,7 @@ import Transport from "./pages/Transport";
 import Waste from "./pages/Waste";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import Report from "./pages/Report";
+import LostFound from "./pages/LostFound";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
