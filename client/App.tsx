@@ -13,6 +13,7 @@ import Waste from "./pages/Waste";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import Report from "./pages/Report";
 import LostFound from "./pages/LostFound";
+import Events from "./pages/Events";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,15 +31,7 @@ const App = () => (
             <Route path="/waste" element={<Waste />} />
             <Route path="/report" element={<Report />} />
             <Route path="/lost-found" element={<LostFound />} />
-            <Route
-              path="/events"
-              element={
-                <PlaceholderPage
-                  title="Local Events Calendar"
-                  description="Discover community events, festivals, and activities happening in your neighborhood."
-                />
-              }
-            />
+            <Route path="/events" element={<Events />} />
             <Route
               path="/emergency"
               element={
