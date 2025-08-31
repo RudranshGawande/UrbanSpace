@@ -15,6 +15,7 @@ import Report from "./pages/Report";
 import LostFound from "./pages/LostFound";
 import Events from "./pages/Events";
 import Emergency from "./pages/Emergency";
+import Community from "./pages/Community";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,15 +35,7 @@ const App = () => (
             <Route path="/lost-found" element={<LostFound />} />
             <Route path="/events" element={<Events />} />
             <Route path="/emergency" element={<Emergency />} />
-            <Route
-              path="/community"
-              element={
-                <PlaceholderPage
-                  title="Community Chat"
-                  description="Connect with your neighbors, share information, and stay updated on local news."
-                />
-              }
-            />
+            <Route path="/community" element={<Community />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
