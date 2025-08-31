@@ -14,6 +14,7 @@ import PlaceholderPage from "./pages/PlaceholderPage";
 import Report from "./pages/Report";
 import LostFound from "./pages/LostFound";
 import Events from "./pages/Events";
+import Emergency from "./pages/Emergency";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,15 +33,7 @@ const App = () => (
             <Route path="/report" element={<Report />} />
             <Route path="/lost-found" element={<LostFound />} />
             <Route path="/events" element={<Events />} />
-            <Route
-              path="/emergency"
-              element={
-                <PlaceholderPage
-                  title="Emergency Services"
-                  description="Quick access to emergency contacts, SOS features, and safety resources."
-                />
-              }
-            />
+            <Route path="/emergency" element={<Emergency />} />
             <Route
               path="/community"
               element={
