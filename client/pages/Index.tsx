@@ -85,7 +85,7 @@ export default function Index() {
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
             Welcome to{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              CityScape
+              Urban Space
             </span>
           </h1>
           

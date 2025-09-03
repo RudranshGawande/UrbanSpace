@@ -45,7 +45,7 @@ export default function Layout({ children }: LayoutProps) {
                 <MapPin className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">CityScape</h1>
+                <h1 className="text-xl font-bold text-foreground">Urban Space</h1>
                 <p className="text-xs text-muted-foreground hidden sm:block">
                   Smart Urban Living
                 </p>
