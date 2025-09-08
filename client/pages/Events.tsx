@@ -466,10 +466,10 @@ export default function Events() {
                                 mode="single"
                                 selected={field.value}
                                 onSelect={field.onChange as any}
-                                className="rounded-md border"
+                                className="border"
                                 modifiers={{ hasEvent: hasEventMatcher }}
                                 modifiersClassNames={{
-                                  hasEvent: "ring-2 ring-primary/60 rounded-md",
+                                  hasEvent: "ring-2 ring-primary/60",
                                 }}
                               />
                               <FormDescription>
@@ -596,10 +596,10 @@ export default function Events() {
                         mode="single"
                         selected={selectedDate}
                         onSelect={setSelectedDate as any}
-                        className="rounded-md border"
+                        className="border"
                         modifiers={{ hasEvent: hasEventMatcher }}
                         modifiersClassNames={{
-                          hasEvent: "ring-2 ring-primary/60 rounded-md",
+                          hasEvent: "ring-2 ring-primary/60",
                         }}
                       />
                       <div className="flex items-center gap-2 mt-2">
