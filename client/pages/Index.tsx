@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import RecentActivities from "@/components/home/RecentActivities";
 import {
   Bus,
   Trash2,
