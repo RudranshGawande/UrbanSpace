@@ -469,7 +469,7 @@ export default function Events() {
                                 className="border"
                                 modifiers={{ hasEvent: hasEventMatcher }}
                                 modifiersClassNames={{
-                                  hasEvent: "ring-2 ring-primary/60",
+                                  hasEvent: "after:content-[''] after:block after:w-1.5 after:h-1.5 after:rounded-full after:bg-primary after:mx-auto after:mt-0.5",
                                 }}
                               />
                               <FormDescription>
@@ -599,7 +599,7 @@ export default function Events() {
                         className="border"
                         modifiers={{ hasEvent: hasEventMatcher }}
                         modifiersClassNames={{
-                          hasEvent: "ring-2 ring-primary/60",
+                          hasEvent: "after:content-[''] after:block after:w-1.5 after:h-1.5 after:rounded-full after:bg-primary after:mx-auto after:mt-0.5",
                         }}
                       />
                       <div className="flex items-center gap-2 mt-2">
