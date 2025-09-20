@@ -97,7 +97,10 @@ function writeSnapshot(routes: Route[]) {
 
 export default function Transport() {
   const [routes, setRoutes] = useState<Route[]>(mockRoutes);
-  const [filter, setFilter] = useState<"all" | "bus" | "train">("all");
+  const [filter, setFilter] = useState<"all" | "bus" | "train">(() => {
+  const saved = localStorage.getItem("cityscape_transport_filter");
+  return saved === "bus" || saved === "train" || saved === "all" ? (saved as any) : "all";
+});
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
 
@@ -129,6 +132,10 @@ export default function Transport() {
     // persist snapshot whenever data is refreshed or routes change
     writeSnapshot(routes);
   }, [lastUpdated, routes]);
+
+  useEffect(() => {
+    localStorage.setItem("cityscape_transport_filter", filter);
+  }, [filter]);
 
   const getStatusColor = (status: Route["status"]) => {
     switch (status) {
