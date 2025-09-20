@@ -73,6 +73,28 @@ const mockRoutes: Route[] = [
   },
 ];
 
+const SNAP_KEY = "cityscape_transport_snapshot";
+
+function writeSnapshot(routes: Route[]) {
+  try {
+    const snapshot = {
+      lastUpdatedISO: new Date().toISOString(),
+      routes: routes.map((r) => ({
+        id: r.id,
+        number: r.number,
+        name: r.name,
+        type: r.type,
+        status: r.status,
+        estimatedArrival: r.estimatedArrival,
+        delay: r.delay ?? null,
+        capacity: r.capacity,
+        distance: r.distance,
+      })),
+    };
+    localStorage.setItem(SNAP_KEY, JSON.stringify(snapshot));
+  } catch {}
+}
+
 export default function Transport() {
   const [routes, setRoutes] = useState<Route[]>(mockRoutes);
   const [filter, setFilter] = useState<"all" | "bus" | "train">("all");
@@ -93,6 +115,8 @@ export default function Transport() {
   };
 
   useEffect(() => {
+    // write initial snapshot on mount
+    writeSnapshot(routes);
     // Auto refresh every 30 seconds
     const interval = setInterval(() => {
       setLastUpdated(new Date());
@@ -100,6 +124,11 @@ export default function Transport() {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    // persist snapshot whenever data is refreshed or routes change
+    writeSnapshot(routes);
+  }, [lastUpdated, routes]);
 
   const getStatusColor = (status: Route["status"]) => {
     switch (status) {
