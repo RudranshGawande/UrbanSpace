@@ -91,69 +91,83 @@ export default function RecentActivities() {
   const [transport, setTransport] = useState<{ lastUpdatedISO?: string; routes: any[] }>({ routes: [] });
 
   useEffect(() => {
-    const ev = safeParse<EventItem>(localStorage.getItem("cityscape_events"))
-      .map<ActivityItem>((e) => ({
-        id: e.id,
-        type: "event",
-        title: e.title,
-        desc: e.location || e.description,
-        whenISO: e.dateISO,
-        href: "/events",
-        extras: [e.category],
-      }))
-      .sort((a, b) => new Date(b.whenISO).getTime() - new Date(a.whenISO).getTime())
-      .slice(0, 4);
+    const load = () => {
+      const ev = safeParse<EventItem>(localStorage.getItem("cityscape_events"))
+        .map<ActivityItem>((e) => ({
+          id: e.id,
+          type: "event",
+          title: e.title,
+          desc: e.location || e.description,
+          whenISO: e.dateISO,
+          href: "/events",
+          extras: [e.category],
+        }))
+        .sort((a, b) => new Date(b.whenISO).getTime() - new Date(a.whenISO).getTime())
+        .slice(0, 4);
 
-    const rp = safeParse<ReportItem>(localStorage.getItem("cityscape_reports"))
-      .map<ActivityItem>((r) => ({
-        id: r.id,
-        type: "report",
-        title: r.title,
-        desc: r.address || r.description,
-        whenISO: r.createdAt,
-        href: "/report",
-        extras: [r.category, r.status],
-      }))
-      .sort((a, b) => new Date(b.whenISO).getTime() - new Date(a.whenISO).getTime())
-      .slice(0, 4);
+      const rp = safeParse<ReportItem>(localStorage.getItem("cityscape_reports"))
+        .map<ActivityItem>((r) => ({
+          id: r.id,
+          type: "report",
+          title: r.title,
+          desc: r.address || r.description,
+          whenISO: r.createdAt,
+          href: "/report",
+          extras: [r.category, r.status],
+        }))
+        .sort((a, b) => new Date(b.whenISO).getTime() - new Date(a.whenISO).getTime())
+        .slice(0, 4);
 
-    const lf = safeParse<LFItem>(localStorage.getItem("cityscape_lostfound"))
-      .map<ActivityItem>((i) => ({
-        id: i.id,
-        type: "lostfound",
-        title: `${i.type === "lost" ? "Lost" : "Found"}: ${i.title}`,
-        desc: i.location || i.description,
-        whenISO: i.dateISO,
-        href: "/lost-found",
-        extras: [i.category, i.status],
-      }))
-      .sort((a, b) => new Date(b.whenISO).getTime() - new Date(a.whenISO).getTime())
-      .slice(0, 4);
+      const lf = safeParse<LFItem>(localStorage.getItem("cityscape_lostfound"))
+        .map<ActivityItem>((i) => ({
+          id: i.id,
+          type: "lostfound",
+          title: `${i.type === "lost" ? "Lost" : "Found"}: ${i.title}`,
+          desc: i.location || i.description,
+          whenISO: i.dateISO,
+          href: "/lost-found",
+          extras: [i.category, i.status],
+        }))
+        .sort((a, b) => new Date(b.whenISO).getTime() - new Date(a.whenISO).getTime())
+        .slice(0, 4);
 
-    const ps = safeParse<PostItem>(localStorage.getItem("cityscape_community_posts"))
-      .map<ActivityItem>((p) => ({
-        id: p.id,
-        type: "community",
-        title: p.author ? `${p.author} posted` : "New post",
-        desc: p.content,
-        whenISO: p.createdAt,
-        href: "/community",
-        extras: [p.topic],
-      }))
-      .sort((a, b) => new Date(b.whenISO).getTime() - new Date(a.whenISO).getTime())
-      .slice(0, 4);
+      const ps = safeParse<PostItem>(localStorage.getItem("cityscape_community_posts"))
+        .map<ActivityItem>((p) => ({
+          id: p.id,
+          type: "community",
+          title: p.author ? `${p.author} posted` : "New post",
+          desc: p.content,
+          whenISO: p.createdAt,
+          href: "/community",
+          extras: [p.topic],
+        }))
+        .sort((a, b) => new Date(b.whenISO).getTime() - new Date(a.whenISO).getTime())
+        .slice(0, 4);
 
-    const snapRaw = localStorage.getItem("cityscape_transport_snapshot");
-    let snap: { lastUpdatedISO?: string; routes?: any[] } = {};
-    try {
-      snap = snapRaw ? JSON.parse(snapRaw) : {};
-    } catch {}
+      const snapRaw = localStorage.getItem("cityscape_transport_snapshot");
+      let snap: { lastUpdatedISO?: string; routes?: any[] } = {};
+      try {
+        snap = snapRaw ? JSON.parse(snapRaw) : {};
+      } catch {}
 
-    setEvents(ev);
-    setReports(rp);
-    setLostFound(lf);
-    setPosts(ps);
-    setTransport({ lastUpdatedISO: snap.lastUpdatedISO, routes: Array.isArray(snap.routes) ? snap.routes.slice(0, 4) : [] });
+      setEvents(ev);
+      setReports(rp);
+      setLostFound(lf);
+      setPosts(ps);
+      setTransport({ lastUpdatedISO: snap.lastUpdatedISO, routes: Array.isArray(snap.routes) ? snap.routes.slice(0, 4) : [] });
+    };
+
+    load();
+    const id = setInterval(load, 2000);
+    const onFocus = () => load();
+    const onStorage = () => load();
+    window.addEventListener("focus", onFocus);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      clearInterval(id);
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("storage", onStorage);
+    };
   }, []);
 
   const nothing = useMemo(() => events.length + reports.length + lostFound.length + posts.length + transport.routes.length === 0, [events, reports, lostFound, posts, transport]);
