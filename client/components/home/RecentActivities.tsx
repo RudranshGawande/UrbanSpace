@@ -145,16 +145,30 @@ export default function RecentActivities() {
         .slice(0, 4);
 
       const snapRaw = localStorage.getItem("cityscape_transport_snapshot");
-      let snap: { lastUpdatedISO?: string; routes?: any[] } = {};
-      try {
-        snap = snapRaw ? JSON.parse(snapRaw) : {};
-      } catch {}
+    let snap: { lastUpdatedISO?: string; routes?: any[] } = {};
+    try {
+      snap = snapRaw ? JSON.parse(snapRaw) : {};
+    } catch {}
 
-      setEvents(ev);
-      setReports(rp);
-      setLostFound(lf);
-      setPosts(ps);
-      setTransport({ lastUpdatedISO: snap.lastUpdatedISO, routes: Array.isArray(snap.routes) ? snap.routes.slice(0, 4) : [] });
+    const transportFilter = localStorage.getItem("cityscape_transport_filter") as
+      | "all"
+      | "bus"
+      | "train"
+      | null;
+    const filteredRoutes = Array.isArray(snap.routes)
+      ? snap.routes.filter((r: any) =>
+          transportFilter && transportFilter !== "all" ? r.type === transportFilter : true,
+        )
+      : [];
+
+    setEvents(ev);
+    setReports(rp);
+    setLostFound(lf);
+    setPosts(ps);
+    setTransport({
+      lastUpdatedISO: snap.lastUpdatedISO,
+      routes: filteredRoutes.slice(0, 4),
+    });
     };
 
     load();
