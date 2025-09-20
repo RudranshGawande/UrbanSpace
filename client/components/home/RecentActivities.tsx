@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Calendar, AlertTriangle, Search, MessageSquare, ArrowRight, MapPin, Clock } from "lucide-react";
+import { Calendar, AlertTriangle, Search, MessageSquare, ArrowRight, MapPin, Clock, Bus, Train } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface EventItem {
@@ -247,7 +247,7 @@ export default function RecentActivities() {
                   {transport.routes.map((r: any) => (
                     <Link key={r.id} to="/transport" className="flex items-center justify-between border rounded-lg p-3 hover:bg-muted/50 transition-colors">
                       <div className="flex items-center gap-3">
-                        <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", r.type === "bus" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700")}>{r.type === "bus" ? <Calendar className="w-4 h-4" /> : <Calendar className="w-4 h-4" />}</div>
+                        <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", r.type === "bus" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700")}>{r.type === "bus" ? <Bus className="w-4 h-4" /> : <Train className="w-4 h-4" />}</div>
                         <div>
                           <div className="font-medium text-foreground">{r.name} ({r.number})</div>
                           <div className="text-xs text-muted-foreground flex gap-2">
